@@ -1,0 +1,14 @@
+FROM debian:stretch
+MAINTAINER CouchDB
+RUN groupadd -g 5984 -r couchdb && useradd -u 5984 -d /opt/couchdb -g couchdb couchdb
+RUN apt-get update -y && apt-get install -y echo "deb https://apache.bintray.com/couchdb-deb Ubuntu 16.04 main" \
+    | sudo tee -a /etc/apt/sources.list
+ENV COUCHDB_VERSION 2.2.0
+COPY 10-docker-default.ini /opt/couchdb/etc/default.d/
+COPY vm.args /opt/couchdb/etc/
+COPY docker-entrypoint.sh /
+RUN chown -R couchdb:couchdb /opt/couchdb/etc/default.d/ /opt/couchdb/etc/vm.args
+WORKDIR /opt/couchdb
+EXPOSE 5984 4369 9100
+VOLUME ["/opt/couchdb/data"]
+CMD ["/opt/couchdb/bin/couchdb"]

@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+  - name: install apache
+    apt:
+     name: apache2
+     state: installed
+     notify: apache service
+  handlers:
+  - name: apache service
+    service:
+      name: apache
+      state: started
+

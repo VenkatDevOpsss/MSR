@@ -1,0 +1,62 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+  - name: install nvm
+    action: shell sudo wget "https://raw.githubusercontent.com/creationix/nvm/v0.0.33.2/install.sh | bash"
+    state: installed
+    update_cache: yes
+
+   #Docker Section
+
+  - name: Install docker prerequisites
+    apt: name={{item}}
+    state: installed
+    update_cache: yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+  - name: Add Docker GPG key
+    apt_key: "url=https://download.docker.com/linux/ubuntu/gpg"
+  - name: Add Docker APT repository
+    apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
+  - name: Update
+    apt: name=update state=present
+  - name: Install docker ce
+    apt: name=docker-ce
+    state: Installed
+
+  - name: Install docker-compose
+    action: shell sudo wget= "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    state: installed
+    update_cache: yes
+
+
+# Openssl
+
+
+  - name: create project directory OPenssl
+    file:
+     state: directory
+     path: /opt/Ossl
+  - name: download openssl
+    action: shell sudo wget http://www.openssl.org/source/openssl-1.0.1g.tar.gz
+    dest: /opt/ossl/
+
+  - name: extract openssl file
+    action: shell sudo /opt/ossl/tar -xf openssl-1.0.1g.tar.gz
+    state: installed
+    update_cache: yes
+
+
+# Git Session
+
+  - name: install git
+    apt:
+    name: git-all
+    state: installed
+    update_cache: yes
