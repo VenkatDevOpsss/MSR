@@ -1,0 +1,83 @@
+name: NGINX | Creating NGINX  ssl cer repo directory
+file: Path=/etc/ssl/nginx  state=directory group=root mode=0700
+
+
+name: NGINX | copying NGINX repository key
+copy: src=/etc/ssl/nginx/nginx-repo.key dest=/etc/ssl/nginx-repo.key owner=root group=root mode=0700
+
+
+name: NGINX | downloading apt-get  NGINX Plus repository 
+get-url: url=https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.14.0-1.el7_4.ngx.x86_64.rpm dest=/etc/yum.repo.d/nginx-1.14.0-1.el7_4.ngx.x86_64.rpm mode=0700
+
+name: NGINX | Installing NGINX 
+yum: 
+   name: nginx
+   state: latest
+
+name: NGINX | Stopping nginx 
+Task 1:   To Create Instances in AWS Cloud.
+-------
+         In real time we need to set up our own VPC, INFRA setup, Then After we need to create EC2 Instances.
+
+         Step1:  Choose an Amazon Machine Image(AMI)  (Ubuntu 16.04)
+
+         Step2: Choose Instance Type (For now t2.micro)
+
+         Step3: Configure Instance details
+
+         Step4: Add Storage
+
+         Step5: Add Tags(Optional)
+
+         Step6: Configure Security Group
+
+         Step7: Create Pem key, download it and launch.
+
+ Finally connect to the server by using putty or supperputty
+
+
+
+
+
+Task2: Installing SOftware packages using Ansible.
+
+     First we need install and Configure the Ansible.
+
+    For installing Ansible follow below steps:
+
+
+         ** We need to conncet the all servers through SSH Connection So First set the SSH Conncetion Between the Servers(Remote/Client/Other)
+
+
+
+         Ansible:
+                         #sudo apt-get update
+                         #sudo apt-get install software-properties-common
+
+
+         **  Once the package is installed, we can add the Ansible    PPA by typing the following command:
+
+                         #sudo apt-add-repository ppa:ansible/ansible
+
+         **  We need to refresh our system’s package index so that it is aware              of the packages available in the PPA
+
+                         #sudo apt-get update
+                         #sudo apt-get install ansible
+                         # ansible –version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
