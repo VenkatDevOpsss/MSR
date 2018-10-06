@@ -1,20 +1,4 @@
-name: NGINX | Creating NGINX  ssl cer repo directory
-file: Path=/etc/ssl/nginx  state=directory group=root mode=0700
 
-
-name: NGINX | copying NGINX repository key
-copy: src=/etc/ssl/nginx/nginx-repo.key dest=/etc/ssl/nginx-repo.key owner=root group=root mode=0700
-
-
-name: NGINX | downloading apt-get  NGINX Plus repository 
-get-url: url=https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.14.0-1.el7_4.ngx.x86_64.rpm dest=/etc/yum.repo.d/nginx-1.14.0-1.el7_4.ngx.x86_64.rpm mode=0700
-
-name: NGINX | Installing NGINX 
-yum: 
-   name: nginx
-   state: latest
-
-name: NGINX | Stopping nginx 
 Task 1:   To Create Instances in AWS Cloud.
 -------
          In real time we need to set up our own VPC, INFRA setup, Then After we need to create EC2 Instances.
@@ -59,11 +43,11 @@ Task2: Installing SOftware packages using Ansible.
 
                          #sudo apt-add-repository ppa:ansible/ansible
 
-         **  We need to refresh our system’s package index so that it is aware              of the packages available in the PPA
+         **  We need to refresh our systemâ€™s package index so that it is aware              of the packages available in the PPA
 
                          #sudo apt-get update
                          #sudo apt-get install ansible
-                         # ansible –version
+                         # ansible â€“version
 
 
 
